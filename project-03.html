@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FragileWE - Jiayun Song</title>
+    <style>
+        /* Base Reset & Typography */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4; color: #111; line-height: 1.2; overflow-x: hidden;
+        }
+        .container { display: flex; min-height: 100vh; }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 60px; position: fixed; top: 0; left: 0; height: 100vh;
+            border-right: 1px solid #111; display: flex; flex-direction: column; 
+            align-items: center; padding: 1rem 0; background: #f4f4f4; z-index: 100;
+        }
+        .nav-pill {
+            writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+            border: 1px solid #111; border-radius: 50px; padding: 15px 6px; margin-bottom: 10px;
+            font-size: 0.8rem; text-transform: uppercase; text-decoration: none;
+            color: #111; font-weight: bold; background: #fff; transition: all 0.3s ease;
+        }
+        .nav-pill:hover { background: #111; color: #fff; }
+
+        /* Main Content Area */
+        .main-content { margin-left: 60px; padding: 2rem 2.5rem; width: calc(100% - 60px); }
+
+        /* Back Link & Action Buttons */
+        .link-group { margin-bottom: 3rem; display: flex; flex-wrap: wrap; gap: 10px; }
+        .action-btn {
+            display: inline-block; text-decoration: none; color: #111; font-weight: bold;
+            font-family: monospace; text-transform: uppercase; border: 1px solid #111;
+            padding: 8px 15px; border-radius: 20px; transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .action-btn:hover { background: #111; color: #fff; }
+
+        /* Header Section */
+        .detail-header { margin-bottom: 2rem; }
+        .detail-title { font-size: clamp(3rem, 5vw, 5rem); font-weight: bold; line-height: 1.05; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; color: #555; }
+        .detail-team-tag .highlight { color: #111; font-weight: bold; border-bottom: 1px solid #111; padding-bottom: 2px; }
+
+        /* Meta Data Grid */
+        .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #111; border-bottom: 2px solid #111; margin-bottom: 3rem; }
+        .meta-item { padding: 1rem 1rem 1rem 0; border-right: 1px solid #111; display: flex; flex-direction: column; gap: 5px; }
+        .meta-item:last-child { border-right: none; padding-right: 0; }
+        .meta-label { font-family: monospace; font-size: 0.75rem; text-transform: uppercase; color: #555; }
+        .meta-value { font-size: 1rem; font-weight: bold; }
+
+        /* Hero Media */
+        .hero-media { width: 100%; aspect-ratio: 16/9; background-color: transparent; margin-bottom: 4rem; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-media img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* Editorial Text Section */
+        .detail-text-section { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; margin-bottom: 4rem; border-bottom: 1px solid #111; padding-bottom: 4rem; }
+        .section-heading { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; }
+        
+        /* 文章内容包裹器 */
+        .section-content { display: flex; flex-direction: column; }
+        .editorial-text { column-count: 2; column-gap: 2rem; font-size: 1.1rem; color: #333; }
+        .editorial-text p { margin-bottom: 1.5rem; break-inside: avoid; }
+        
+        /* Video Wrapper */
+        .video-wrapper { margin-bottom: 4rem; }
+        .video-heading { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: 1px solid #111; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Narrative Gallery */
+        .narrative-gallery { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 4rem; }
+        .gallery-text { font-size: 1.2rem; font-weight: bold; text-transform: uppercase; color: #111; margin-top: 2rem; margin-bottom: 0.5rem; border-bottom: 1px solid #111; padding-bottom: 0.5rem; }
+        .gallery-item { width: 100%; background-color: transparent; display: flex; align-items: center; justify-content: center; }
+        .gallery-item img { width: 100%; height: auto; object-fit: contain; border: 1px solid #ddd; }
+        .gallery-item.full-width { grid-column: span 2; }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; border-right: none; border-bottom: 1px solid #111; padding: 1rem; justify-content: center; gap: 10px; }
+            .nav-pill { writing-mode: horizontal-tb; transform: none; margin-bottom: 0; padding: 6px 12px; }
+            .main-content { margin-left: 0; width: 100%; padding: 1.5rem; }
+            .meta-grid { grid-template-columns: repeat(2, 1fr); border-bottom: none; }
+            .meta-item { border-bottom: 1px solid #111; padding: 1rem 0; }
+            .meta-item:nth-child(even) { border-right: none; padding-left: 1rem; }
+            .detail-text-section { grid-template-columns: 1fr; gap: 1rem; }
+            .editorial-text { column-count: 1; }
+            /* 移动端恢复图片宽度 */
+            .gallery-item img[style*="width: 70%"] { width: 100% !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <a href="index.html" class="nav-pill">JIAYUN SONG</a>
+            <a href="index.html#works" class="nav-pill">WORKS</a>
+            <a href="index.html#info" class="nav-pill">INFO</a>
+            <a href="#" class="nav-pill">OTHER</a>
+        </nav>
+
+        <main class="main-content">
+            
+            <!-- Top Links -->
+            <div class="link-group">
+                <a href="index.html" class="action-btn"><- BACK TO WORKS</a>
+                <a href="https://fragilewe-2-0.onrender.com" target="_blank" class="action-btn">Playtest Link -></a>
+                <a href="https://youtu.be/Crh9d_EI_ME" target="_blank" class="action-btn">Project Video -></a>
+            </div>
+
+            <!-- Header -->
+            <header class="detail-header">
+                <h1 class="detail-title">FragileWE</h1>
+                
+                <div class="detail-team-tag">
+                    <span class="highlight">SOLO PROJECT</span> 
+                    <span>/ ONLINE MULTIPLAYER & GESTURE INTERACTION</span>
+                </div>
+                
+                <div class="meta-grid">
+                    <div class="meta-item">
+                        <span class="meta-label">Role</span>
+                        <span class="meta-value">Concept to Execution</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tools</span>
+                        <span class="meta-value">p5.js, ml5.js, Gemini, Illustrator</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Format</span>
+                        <span class="meta-value">Interactive & Multiplayer Artwork</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Year</span>
+                        <span class="meta-value">2026</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Hero Image -->
+            <section class="hero-media">
+                <img src="assets/24.png" alt="FragileWE Hero">
+            </section>
+
+            <!-- Concept Section Text -->
+            <section class="detail-text-section" style="margin-bottom: 2rem; border-bottom: none; padding-bottom: 0;">
+                <div class="section-heading">Concept</div>
+                <div class="section-content">
+                    <div class="editorial-text">
+                        <p>"FragileWE 2.0" is an interactive, multiplayer computational artwork exploring the terrifying asymmetry between the immense effort required to build and the ease of destruction. In this shared online space, anonymous users collaboratively place digital dominoes. These dominoes act as fragile "collective assets" and social contracts—taking minutes of careful collaboration to construct, but only seconds to collapse entirely in a chain reaction.</p>
+                        <p>Inspired by Olafur Eliasson’s physical installations, this project translates the concept of collective building into the digital realm. By algorithmically amplifying the stark contrast between creation and destruction, it illustrates human vulnerability against cold computational logic.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 独立全宽展示：用户交互流程图 -->
+            <section class="narrative-gallery" style="margin-bottom: 4rem; border-bottom: 1px solid #111; padding-bottom: 4rem;">
+                <div class="gallery-item full-width">
+                    <img src="assets/28.png" alt="User Interaction Flow" loading="lazy">
+                </div>
+            </section>
+
+            <!-- Mechanics Section Text -->
+            <section class="detail-text-section" style="margin-bottom: 2rem; border-bottom: none; padding-bottom: 0;">
+                <div class="section-heading">Interaction Mechanics</div>
+                <div class="section-content">
+                    <div class="editorial-text">
+                        <p><strong>The Shift to Embodied Interaction:</strong> Playtesting revealed that traditional mouse clicks lacked the physical weight needed to convey the artistic metaphor of "fragility". To resolve this, I introduced computer vision via ml5.js (HandPose) to physically embody the interaction.</p>
+                        <p><strong>The Mechanic (The Build-up vs. Destruction):</strong> The interaction flow is an asymmetrical physical experience. To create, users must carefully navigate using an open left hand, and meticulously "pinch and rotate" with their right hand to place a domino, demanding physical tension and steadiness. Conversely, destruction is effortlessly brutal: a rapid, open-hand swipe registers as a physical strike, instantly triggering a catastrophic chain reaction that wipes out the collaborative effort.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 独立全宽展示：交互手势图 (已调整为 70% 宽度) -->
+            <section class="narrative-gallery" style="margin-bottom: 4rem; border-bottom: 1px solid #111; padding-bottom: 4rem;">
+                <div class="gallery-item full-width">
+                    <img src="assets/25.png" alt="Interaction Diagram" loading="lazy" style="width: 70%;">
+                </div>
+            </section>
+
+            <!-- Execution & AI Integration Section -->
+            <section class="detail-text-section">
+                <div class="section-heading">Execution & AI</div>
+                <div class="section-content">
+                    <div class="editorial-text">
+                        <p>Developing 'FragileWE' required bridging frontend 3D rendering (p5.js), machine learning models (ml5.js), and backend real-time networking (Node.js/Socket.io) to synchronize the 'collective assets' across multiple anonymous clients.</p>
+                        <p>In this process, I utilized Gemini as a crucial mathematical and syntax co-pilot. While the conceptual design and architecture remained my own, AI assisted in solving complex 3D coordinate projection algebra to map 2D hand-tracking data into a tilted WebGL space. Furthermore, AI was instrumental in formulating logical gates to accurately parse human intent—distinguishing between a delicate 'pinch' for placement and computing frame-by-frame velocity to accurately trigger the 'swipe' of destruction.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- YouTube Video Presentation -->
+            <section class="video-wrapper">
+                <div class="video-heading">Project Video</div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/Crh9d_EI_ME" title="FragileWE Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </section>
+
+            <!-- Process & Gallery -->
+            <section class="narrative-gallery">
+                <div class="section-heading" style="margin-bottom: 1rem;">Process & Gallery</div>
+                
+                <!-- 左右手操作 -->
+                <div class="gallery-text">Left & Right Hand Operation</div>
+                <div class="gallery-item full-width">
+                    <img src="assets/26.gif" alt="Hand Operation Gesture Interaction" loading="lazy">
+                </div>
+
+                <!-- 可以多人在线同时进行 -->
+                <div class="gallery-text">Multiplayer Online Collaboration</div>
+                <div class="gallery-item full-width">
+                    <img src="assets/27.png" alt="Multiplayer Online Simultaneously" loading="lazy">
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

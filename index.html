@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiayun Song - Portfolio</title>
+    <style>
+        /* 基础重置与排版设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4; 
+            color: #111;
+            line-height: 1.2; 
+            overflow-x: hidden;
+        }
+        
+        /* 布局容器 */
+        .container { display: flex; min-height: 100vh; }
+
+        /* 左侧固定导航条 */
+        .sidebar {
+            width: 60px; position: fixed; top: 0; left: 0; height: 100vh;
+            border-right: 1px solid #111; display: flex; flex-direction: column;
+            align-items: center; padding: 1rem 0; background: #f4f4f4; z-index: 100;
+        }
+
+        /* 胶囊按钮设计 */
+        .nav-pill {
+            writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+            border: 1px solid #111; border-radius: 50px; padding: 15px 6px; 
+            margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase;
+            text-decoration: none; color: #111; font-weight: bold;
+            background: #fff; transition: all 0.3s ease;
+        }
+        .nav-pill:hover { background: #111; color: #fff; }
+
+        /* 主内容区 */
+        .main-content { margin-left: 60px; padding: 2rem 2.5rem; width: calc(100% - 60px); }
+
+        /* 巨大的自我介绍 (Hero Section) */
+        .hero { margin-bottom: 5rem; max-width: 1200px; }
+        .hero h1 { font-size: clamp(3rem, 6vw, 6rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; }
+
+        /* 作品列表区 */
+        .project-list { display: flex; flex-direction: column; gap: 4rem; }
+
+        /* 单个作品卡片 */
+        .project-item {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; 
+            border-top: 1px solid #111; padding-top: 1.5rem;
+        }
+
+        /* 作品信息 (左侧) */
+        .project-info { display: flex; flex-direction: column; }
+        .project-tags {
+            font-family: monospace; text-transform: uppercase; font-size: 0.85rem;
+            margin-bottom: 0.8rem; display: flex; gap: 8px; color: #555; align-items: center;
+        }
+        /* 为人数标签增加强调样式 */
+        .tag-team {
+            color: #111;
+            font-weight: bold;
+            border-bottom: 1px solid #111;
+        }
+
+        .project-title { font-size: 2.5rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.1; }
+        .project-desc { font-size: 1.1rem; color: #555; margin-bottom: 1.5rem; max-width: 95%; line-height: 1.4; }
+        .read-more {
+            margin-top: auto; text-decoration: none; color: #111; font-weight: bold;
+            border-bottom: 1px solid #111; align-self: flex-start; padding-bottom: 2px;
+        }
+        .read-more:hover { color: #666; border-color: #666; }
+
+        /* 作品图片/视频占位 (右侧) */
+        .project-media {
+            width: 100%; 
+            aspect-ratio: 16/10; 
+            background-color: transparent; 
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; 
+        }
+        /* 确保图片铺满并且不变形 */
+        .project-media img {
+            width: 100%; height: 100%; 
+            object-fit: contain; 
+            transition: transform 0.5s ease;
+        }
+        .project-item:hover .project-media img {
+            transform: scale(1.03);
+        }
+
+        /* INFO 版块样式 */
+        .info-section {
+            margin-top: 8rem;
+            padding-top: 4rem;
+            border-top: 1px solid #111;
+            margin-bottom: 5rem;
+        }
+        .info-heading {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+        .info-content {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: #333;
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+        .contact-list {
+            list-style: none;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+        .contact-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .contact-label {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #555;
+            width: 150px; /* 固定宽度对齐 */
+            display: inline-block;
+        }
+        .contact-link {
+            color: #111;
+            text-decoration: none;
+            border-bottom: 1px solid #111;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .contact-link:hover {
+            color: #666;
+            border-color: #666;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar {
+                width: 100%; height: auto; position: relative; flex-direction: row;
+                border-right: none; border-bottom: 1px solid #111; padding: 1rem;
+                justify-content: center; gap: 10px;
+            }
+            .nav-pill { writing-mode: horizontal-tb; transform: none; margin-bottom: 0; padding: 6px 12px; }
+            .main-content { margin-left: 0; width: 100%; padding: 1.5rem; }
+            .project-item { grid-template-columns: 1fr; }
+            .project-media { order: -1; }
+            
+            /* 手机端 Info 排版 */
+            .info-section { margin-top: 5rem; padding-top: 3rem; }
+            .contact-list li { flex-direction: column; align-items: flex-start; gap: 5px; margin-bottom: 1.5rem; }
+            .contact-label { width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 左侧导航 -->
+        <nav class="sidebar">
+            <a href="#" class="nav-pill">JIAYUN SONG</a>
+            <a href="#works" class="nav-pill">WORKS</a>
+            <a href="#info" class="nav-pill">INFO</a>
+          
+        </nav>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            
+            <section class="hero">
+                <h1>Hi! I'm a multidisciplinary designer & illustrator. I explore the intersection of interactive technology, speculative narratives, and user experience. I also excel at harnessing AI tools to bring my creative inspirations to life.</h1>
+            </section>
+
+            <!-- 作品列表 -->
+            <section id="works" class="project-list">
+                
+                <!-- 作品 1 -->
+                <article class="project-item">
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag-team">SOLO</span>
+                            <span>/</span>
+                            <span>INTERACTIVE WEB ARCHIVE & GAME</span>
+                        </div>
+                        <h2 class="project-title">MarriagEmArkeT</h2>
+                        <p class="project-desc">A speculative web archive and interactive game that critically examines the "quantified intimacy" of modern dating markets. Through absurd gamified mechanics, it challenges the commodification of human relationships under algorithmic matchmaking.</p>
+                        <a href="project-01.html" class="read-more">Full Project -></a>
+                    </div>
+                    <div class="project-media">
+                        <img src="assets/cover01.png" alt="MarriagEmArkeT Cover">
+                    </div>
+                </article>
+
+                <!-- 作品 2 -->
+                <article class="project-item">
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag-team">TEAM OF 3</span>
+                            <span>/</span>
+                            <span>MOTION CAPTURE & GAME</span>
+                        </div>
+                        <h2 class="project-title">/imagine:salmon</h2>
+                        <p class="project-desc">A darkly comedic survival game where players control a piece of salmon sashimi. Utilizing motion capture and glitch aesthetics, it explores bodily alienation and the absurdity of existing as "erroneous data" under the algorithmic gaze.</p>
+                        <a href="project-02.html" class="read-more">Full Project -></a>
+                    </div>
+                    <div class="project-media">
+                        <img src="assets/cover02.png" alt="/imagine:salmon Cover">
+                    </div>
+                </article>
+
+                <!-- 作品 3 -->
+                <article class="project-item">
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag-team">SOLO</span>
+                            <span>/</span>
+                            <span>ONLINE MULTIPLAYER & GESTURE INTERACTION</span>
+                        </div>
+                        <h2 class="project-title">FragileWE</h2>
+                        <p class="project-desc">An online multiplayer computational artwork exploring the terrifying asymmetry between creation and destruction. Users employ real-time webcam gesture controls (ml5.js) to collaboratively build—and effortlessly destroy—fragile digital dominoes.</p>
+                        <a href="project-03.html" class="read-more">Full Project -></a>
+                    </div>
+                    <div class="project-media">
+                        <img src="assets/cover03.png" alt="FragileWE Cover">
+                    </div>
+                </article>
+
+                <!-- 作品 4 -->
+                <article class="project-item">
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag-team">TEAM OF 2</span>
+                            <span>/</span>
+                            <span>UI/UX & AR & ONLINE INTERACTION</span>
+                        </div>
+                        <h2 class="project-title">Market App</h2>
+                        <p class="project-desc">A digital-first transformation of a traditional Chengdu food market. By integrating spatial computing, AR food identifiers, and a culturally responsive UI, it bridges the physical and dynamic online worlds for a younger demographic.</p>
+                        <a href="project-04.html" class="read-more">Full Project -></a>
+                    </div>
+                    <div class="project-media">
+                        <img src="assets/cover04.png" alt="Market App Cover">
+                    </div>
+                </article>
+
+                <!-- 作品 5 -->
+                <article class="project-item">
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag-team">TEAM OF 2</span>
+                            <span>/</span>
+                            <span>INTERACTIVE NARRATIVE & DIGITAL MONUMENT</span>
+                        </div>
+                        <h2 class="project-title">It's so quiet, I thought we'd always have something to talk about</h2>
+                        <p class="project-desc">A digital monument and interactive narrative critiquing the "Dead Internet Theory." It translates the invisible statistics of bot dominance into an inescapable Penrose loop, visualizing the internet's decay into algorithmic "data sludge."</p>
+                        <a href="project-05.html" class="read-more">Full Project -></a>
+                    </div>
+                    <div class="project-media">
+                        <img src="assets/cover05.png" alt="It's quiet Cover">
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- INFO 个人信息区域 -->
+            <section id="info" class="info-section">
+                <h2 class="info-heading">Info</h2>
+                <div class="info-content">
+                    <p>Currently studying MA Computational Arts at Goldsmiths.</p>
+                </div>
+                
+                <ul class="contact-list">
+                    <li>
+                        <span class="contact-label">Email</span> 
+                        <a href="mailto:songjiayun6@outlook.com" class="contact-link">songjiayun6@outlook.com</a>
+                    </li>
+                    <li>
+                        <span class="contact-label">Phone</span> 
+                        <span>07344567111</span>
+                    </li>
+                    <li>
+                        <span class="contact-label">Illustration Blog</span> 
+                        <a href="https://xhslink.com/m/6oNL1ztmssr" target="_blank" class="contact-link">Pocar1 (in Rednote)</a>
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>
