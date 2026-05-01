@@ -68,7 +68,11 @@
             border-bottom: 1px solid #111;
         }
 
+        /* 标题及其链接样式 */
         .project-title { font-size: 2.5rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.1; }
+        .project-title a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+        .project-title a:hover { color: #666; }
+        
         .project-desc { font-size: 1.1rem; color: #555; margin-bottom: 1.5rem; max-width: 95%; line-height: 1.4; }
         .read-more {
             margin-top: auto; text-decoration: none; color: #111; font-weight: bold;
@@ -83,6 +87,9 @@
             background-color: transparent; 
             display: flex; align-items: center; justify-content: center;
             overflow: hidden; 
+        }
+        .media-link {
+            display: block; width: 100%; height: 100%;
         }
         /* 确保图片铺满并且不变形 */
         .project-media img {
@@ -170,7 +177,6 @@
             <a href="#" class="nav-pill">JIAYUN SONG</a>
             <a href="#works" class="nav-pill">WORKS</a>
             <a href="#info" class="nav-pill">INFO</a>
-          
         </nav>
 
         <!-- 主内容区 -->
@@ -191,12 +197,14 @@
                             <span>/</span>
                             <span>INTERACTIVE WEB ARCHIVE & GAME</span>
                         </div>
-                        <h2 class="project-title">MarriagEmArkeT</h2>
+                        <h2 class="project-title"><a href="project-01.html">MarriagEmArkeT</a></h2>
                         <p class="project-desc">A speculative web archive and interactive game that critically examines the "quantified intimacy" of modern dating markets. Through absurd gamified mechanics, it challenges the commodification of human relationships under algorithmic matchmaking.</p>
                         <a href="project-01.html" class="read-more">Full Project -></a>
                     </div>
                     <div class="project-media">
-                        <img src="assets/cover01.png" alt="MarriagEmArkeT Cover">
+                        <a href="project-01.html" class="media-link">
+                            <img src="assets/cover01.png" alt="MarriagEmArkeT Cover">
+                        </a>
                     </div>
                 </article>
 
@@ -208,12 +216,14 @@
                             <span>/</span>
                             <span>MOTION CAPTURE & GAME</span>
                         </div>
-                        <h2 class="project-title">/imagine:salmon</h2>
+                        <h2 class="project-title"><a href="project-02.html">/imagine:salmon</a></h2>
                         <p class="project-desc">A darkly comedic survival game where players control a piece of salmon sashimi. Utilizing motion capture and glitch aesthetics, it explores bodily alienation and the absurdity of existing as "erroneous data" under the algorithmic gaze.</p>
                         <a href="project-02.html" class="read-more">Full Project -></a>
                     </div>
                     <div class="project-media">
-                        <img src="assets/cover02.png" alt="/imagine:salmon Cover">
+                        <a href="project-02.html" class="media-link">
+                            <img src="assets/cover02.png" alt="/imagine:salmon Cover">
+                        </a>
                     </div>
                 </article>
 
@@ -225,16 +235,37 @@
                             <span>/</span>
                             <span>ONLINE MULTIPLAYER & GESTURE INTERACTION</span>
                         </div>
-                        <h2 class="project-title">FragileWE</h2>
+                        <h2 class="project-title"><a href="project-03.html">FragileWE</a></h2>
                         <p class="project-desc">An online multiplayer computational artwork exploring the terrifying asymmetry between creation and destruction. Users employ real-time webcam gesture controls (ml5.js) to collaboratively build—and effortlessly destroy—fragile digital dominoes.</p>
                         <a href="project-03.html" class="read-more">Full Project -></a>
                     </div>
                     <div class="project-media">
-                        <img src="assets/cover03.png" alt="FragileWE Cover">
+                        <a href="project-03.html" class="media-link">
+                            <img src="assets/cover03.png" alt="FragileWE Cover">
+                        </a>
                     </div>
                 </article>
 
-                <!-- 作品 4 -->
+                <!-- 作品 4 (Oracle 项目) -->
+                <article class="project-item">
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag-team">SOLO</span>
+                            <span>/</span>
+                            <span>WEBCAM-BASED DIGITAL ORACLE</span>
+                        </div>
+                        <h2 class="project-title"><a href="project-04.html">Actually I've already decided, But I still want to ask...</a></h2>
+                        <p class="project-desc">An interactive, webcam-based digital oracle that playfully reimagines the "Magic 8-Ball." Utilizing facial tracking and hand gestures, users summon a 3D angel for guidance, featuring a cathartic "burning" ritual to reject unwanted advice and affirm inner choices.</p>
+                        <a href="project-04.html" class="read-more">Full Project -></a>
+                    </div>
+                    <div class="project-media">
+                        <a href="project-04.html" class="media-link">
+                            <img src="assets/51.png" alt="Digital Oracle Cover">
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 作品 5 (Market App) -->
                 <article class="project-item">
                     <div class="project-info">
                         <div class="project-tags">
@@ -242,16 +273,18 @@
                             <span>/</span>
                             <span>UI/UX & AR & ONLINE INTERACTION</span>
                         </div>
-                        <h2 class="project-title">Market App</h2>
+                        <h2 class="project-title"><a href="project-05.html">Market App</a></h2>
                         <p class="project-desc">A digital-first transformation of a traditional Chengdu food market. By integrating spatial computing, AR food identifiers, and a culturally responsive UI, it bridges the physical and dynamic online worlds for a younger demographic.</p>
-                        <a href="project-04.html" class="read-more">Full Project -></a>
+                        <a href="project-05.html" class="read-more">Full Project -></a>
                     </div>
                     <div class="project-media">
-                        <img src="assets/cover04.png" alt="Market App Cover">
+                        <a href="project-05.html" class="media-link">
+                            <img src="assets/cover04.png" alt="Market App Cover">
+                        </a>
                     </div>
                 </article>
 
-                <!-- 作品 5 -->
+                <!-- 作品 6 (It's so quiet...) -->
                 <article class="project-item">
                     <div class="project-info">
                         <div class="project-tags">
@@ -259,12 +292,14 @@
                             <span>/</span>
                             <span>INTERACTIVE NARRATIVE & DIGITAL MONUMENT</span>
                         </div>
-                        <h2 class="project-title">It's so quiet, I thought we'd always have something to talk about</h2>
+                        <h2 class="project-title"><a href="project-06.html">It's so quiet, I thought we'd always have something to talk about</a></h2>
                         <p class="project-desc">A digital monument and interactive narrative critiquing the "Dead Internet Theory." It translates the invisible statistics of bot dominance into an inescapable Penrose loop, visualizing the internet's decay into algorithmic "data sludge."</p>
-                        <a href="project-05.html" class="read-more">Full Project -></a>
+                        <a href="project-06.html" class="read-more">Full Project -></a>
                     </div>
                     <div class="project-media">
-                        <img src="assets/cover05.png" alt="It's quiet Cover">
+                        <a href="project-06.html" class="media-link">
+                            <img src="assets/cover05.png" alt="It's quiet Cover">
+                        </a>
                     </div>
                 </article>
 
@@ -284,7 +319,7 @@
                     </li>
                     <li>
                         <span class="contact-label">Phone</span> 
-                        <span>07344567111</span>
+                        <span>+44 7344567111</span>
                     </li>
                     <li>
                         <span class="contact-label">Illustration Blog</span> 

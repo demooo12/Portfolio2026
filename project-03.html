@@ -43,8 +43,12 @@
         /* Header Section */
         .detail-header { margin-bottom: 2rem; }
         .detail-title { font-size: clamp(3rem, 5vw, 5rem); font-weight: bold; line-height: 1.05; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
-        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; color: #555; }
+        
+        /* 标签与按钮同行排版 */
+        .header-tags-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem; }
+        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; display: flex; align-items: center; gap: 10px; color: #555; }
         .detail-team-tag .highlight { color: #111; font-weight: bold; border-bottom: 1px solid #111; padding-bottom: 2px; }
+        .header-tags-actions .link-group { margin-bottom: 0; }
 
         /* Meta Data Grid */
         .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #111; border-bottom: 2px solid #111; margin-bottom: 3rem; }
@@ -101,25 +105,30 @@
             <a href="index.html" class="nav-pill">JIAYUN SONG</a>
             <a href="index.html#works" class="nav-pill">WORKS</a>
             <a href="index.html#info" class="nav-pill">INFO</a>
-            <a href="#" class="nav-pill">OTHER</a>
         </nav>
 
         <main class="main-content">
             
-            <!-- Top Links -->
-            <div class="link-group">
+            <!-- Top Links (只保留返回按钮) -->
+            <div class="link-group" style="margin-bottom: 2rem;">
                 <a href="index.html" class="action-btn"><- BACK TO WORKS</a>
-                <a href="https://fragilewe-2-0.onrender.com" target="_blank" class="action-btn">Playtest Link -></a>
-                <a href="https://youtu.be/Crh9d_EI_ME" target="_blank" class="action-btn">Project Video -></a>
             </div>
 
             <!-- Header -->
             <header class="detail-header">
                 <h1 class="detail-title">FragileWE</h1>
                 
-                <div class="detail-team-tag">
-                    <span class="highlight">SOLO PROJECT</span> 
-                    <span>/ ONLINE MULTIPLAYER & GESTURE INTERACTION</span>
+                <!-- 标签与操作按钮同行排版 -->
+                <div class="header-tags-actions">
+                    <div class="detail-team-tag">
+                        <span class="highlight">SOLO PROJECT</span> 
+                        <span>/ ONLINE MULTIPLAYER & GESTURE INTERACTION</span>
+                    </div>
+                    <!-- 将两个跳转按钮移动到这里 -->
+                    <div class="link-group">
+                        <a href="https://fragilewe-2-0.onrender.com" target="_blank" class="action-btn">Playtest Link -></a>
+                        <a href="https://youtu.be/Crh9d_EI_ME" target="_blank" class="action-btn">Project Video -></a>
+                    </div>
                 </div>
                 
                 <div class="meta-grid">

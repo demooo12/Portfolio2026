@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market App - Jiayun Song</title>
+    <title>Actually I've already decided - Jiayun Song</title>
     <style>
         /* Base Reset & Typography */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,9 +42,13 @@
 
         /* Header Section */
         .detail-header { margin-bottom: 2rem; }
-        .detail-title { font-size: clamp(3rem, 5vw, 5rem); font-weight: bold; line-height: 1.05; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
-        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; color: #555; }
+        .detail-title { font-size: clamp(3rem, 4vw, 4.5rem); font-weight: bold; line-height: 1.05; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+        
+        /* 标签与按钮同行排版 */
+        .header-tags-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem; }
+        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; display: flex; align-items: center; gap: 10px; color: #555; }
         .detail-team-tag .highlight { color: #111; font-weight: bold; border-bottom: 1px solid #111; padding-bottom: 2px; }
+        .header-tags-actions .link-group { margin-bottom: 0; } /* 取消内嵌按钮组的底边距 */
 
         /* Meta Data Grid */
         .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #111; border-bottom: 2px solid #111; margin-bottom: 3rem; }
@@ -53,39 +57,44 @@
         .meta-label { font-family: monospace; font-size: 0.75rem; text-transform: uppercase; color: #555; }
         .meta-value { font-size: 1rem; font-weight: bold; }
 
-        /* Section Layout */
-        .detail-text-section { margin-bottom: 4rem; border-bottom: 1px solid #111; padding-bottom: 4rem; }
-        .section-heading { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; margin-bottom: 1.5rem; }
-        .section-content { display: flex; flex-direction: column; }
-        .editorial-text { font-size: 1.1rem; color: #333; line-height: 1.5; column-count: 1; }
-        .editorial-text p { margin-bottom: 1.5rem; }
+        /* Hero Media */
+        .hero-media { width: 100%; aspect-ratio: 16/9; background-color: transparent; margin-bottom: 4rem; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-media img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* side-by-side Layout */
-        .side-by-side-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 4rem; }
-        .side-by-side-row.ratio-3-7 { grid-template-columns: 0.3fr 0.7fr; }
-        .side-by-side-row .text-block p { font-size: 1.1rem; color: #333; margin-bottom: 0; line-height: 1.4; }
-        .side-by-side-row .image-block img { width: 100%; height: auto; display: block; }
-        /* 让右侧可以并排放两张图片 */
-        .side-by-side-row .image-block.sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        /* 1:2 左右分栏排版 (用于 Concept 和 Execution) */
+        .detail-text-section { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; margin-bottom: 4rem; border-bottom: 1px solid #111; padding-bottom: 4rem; }
+        .section-heading { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; }
+        .section-content { display: flex; flex-direction: column; }
+        .editorial-text { column-count: 2; column-gap: 2rem; font-size: 1.1rem; color: #333; }
+        .editorial-text p { margin-bottom: 1.5rem; break-inside: avoid; }
+
+        /* 标题在上、内容在下全宽排版 (用于 Interaction Mechanics) */
+        .detail-text-section-full { margin-bottom: 4rem; border-bottom: 1px solid #111; padding-bottom: 4rem; }
+        .detail-text-section-full .section-heading { font-size: 1.8rem; font-weight: bold; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .detail-text-section-full .editorial-text { column-count: 1; font-size: 1.15rem; line-height: 1.6; color: #333; }
+        .detail-text-section-full .editorial-text p { margin-bottom: 1.5rem; }
         
-        /* Image Control */
-        .inline-image-wrap { margin-top: 1rem; text-align: center; margin-bottom: 2rem;}
-        .inline-image-wrap.full img { width: 100%; height: auto; display: block; }
-        .inline-image-wrap.seventy img { width: 70%; height: auto; display: block; margin: 0 auto; }
+        .sub-heading { font-size: 1.2rem; font-weight: bold; margin-top: 2.5rem; margin-bottom: 0.5rem; border-left: 3px solid #111; padding-left: 10px; text-transform: uppercase; }
+
+        /* 5:5 左右等分排版 (视频/图片 与 文字并排) */
+        .split-50 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin-top: 1rem; margin-bottom: 2rem; }
+        .split-50 .text-block p { font-size: 1.15rem; color: #333; line-height: 1.6; margin-bottom: 0; }
+        .split-50 .media-block video, .split-50 .media-block img { width: 100%; height: auto; display: block; }
+
+        /* 并排展示视频/图片 (2列网格) */
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 1.5rem; margin-bottom: 2.5rem; }
+        .gallery-grid video, .gallery-grid img { width: 100%; height: auto; display: block; }
+
+        /* 居中媒体控制 */
+        .inline-image-wrap { margin-top: 2rem; margin-bottom: 2rem; text-align: center; }
+        .inline-image-wrap.full img, .inline-image-wrap.full video { width: 100%; height: auto; display: block; }
+        .inline-image-wrap.seventy img, .inline-image-wrap.seventy video { width: 70%; height: auto; margin: 0 auto; display: block; }
 
         /* Video Wrapper */
         .video-wrapper { margin-bottom: 4rem; }
+        .video-heading { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; margin-bottom: 1.5rem; }
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: 1px solid #111; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-        /* Gallery/Grid */
-        .narrative-gallery { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 4rem; }
-        .gallery-text { font-size: 1.2rem; font-weight: bold; text-transform: uppercase; color: #111; margin-top: 2rem; margin-bottom: 0.5rem; border-bottom: 1px solid #111; padding-bottom: 0.5rem; }
-        .gallery-text.no-border-bottom { border-bottom: none; padding-bottom: 0; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 2rem; }
-        .gallery-item { width: 100%; display: flex; align-items: center; justify-content: center; }
-        .gallery-item img { width: 100%; height: auto; object-fit: contain; }
-        .gallery-item.full-width { grid-column: span 2; }
 
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; border-right: none; border-bottom: 1px solid #111; padding: 1rem; justify-content: center; gap: 10px; }
@@ -93,144 +102,166 @@
             .main-content { margin-left: 0; width: 100%; padding: 1.5rem; }
             .meta-grid { grid-template-columns: repeat(2, 1fr); border-bottom: none; }
             .meta-item { border-bottom: 1px solid #111; padding: 1rem 0; }
-            .side-by-side-row, .side-by-side-row.ratio-3-7 { grid-template-columns: 1fr; gap: 1.5rem; }
-            .side-by-side-row .image-block.sub-grid { grid-template-columns: 1fr; } /* 手机上两张图上下排列 */
-            .gallery-grid { grid-template-columns: 1fr; }
-            .gallery-item.full-width { grid-column: span 1; }
-            .inline-image-wrap.seventy img { width: 100%; }
+            .meta-item:nth-child(even) { border-right: none; padding-left: 1rem; }
+            .detail-text-section { grid-template-columns: 1fr; gap: 1rem; }
+            .editorial-text { column-count: 1; }
+            .split-50 { grid-template-columns: 1fr; gap: 1.5rem; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .inline-image-wrap.seventy img, .inline-image-wrap.seventy video { width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- Sidebar Navigation -->
         <nav class="sidebar">
             <a href="index.html" class="nav-pill">JIAYUN SONG</a>
             <a href="index.html#works" class="nav-pill">WORKS</a>
             <a href="index.html#info" class="nav-pill">INFO</a>
-            <a href="#" class="nav-pill">OTHER</a>
         </nav>
 
         <main class="main-content">
-            <div class="link-group">
+            
+            <!-- Top Links (只保留返回按钮) -->
+            <div class="link-group" style="margin-bottom: 2rem;">
                 <a href="index.html" class="action-btn"><- BACK TO WORKS</a>
-                <a href="https://youtu.be/htHzM4u4O18" target="_blank" class="action-btn">Project Video -></a>
             </div>
 
+            <!-- Header -->
             <header class="detail-header">
-                <h1 class="detail-title">Market App</h1>
-                <div class="detail-team-tag">
-                    <span class="highlight">TEAM OF 2</span> 
-                    <span>/ UI/UX & AR INTERACTIVE EXPERIENCE</span>
+                <h1 class="detail-title">Actually I've already decided, But I still want to ask...</h1>
+                
+                <!-- 标签与操作按钮同行排版 -->
+                <div class="header-tags-actions">
+                    <div class="detail-team-tag">
+                        <span class="highlight">SOLO PROJECT</span> 
+                        <span>/ WEBCAM-BASED DIGITAL ORACLE</span>
+                    </div>
+                    <!-- 将两个跳转按钮移动到这里 -->
+                    <div class="link-group">
+                        <a href="https://i-still-wanna-ask.onrender.com" target="_blank" class="action-btn">Playtest Link -></a>
+                        <a href="https://youtu.be/go-eSSq0790" target="_blank" class="action-btn">Project Video -></a>
+                    </div>
                 </div>
                 
                 <div class="meta-grid">
                     <div class="meta-item">
                         <span class="meta-label">Role</span>
-                        <span class="meta-value">UI/UX, AR Prototyping, Brand Visuals</span>
+                        <span class="meta-value">Concept, Interaction Dev, Visual Design, 3D Modeling</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Tools</span>
-                        <span class="meta-value">Figma, Adobe Illustrator, Spline</span>
+                        <span class="meta-value">p5.js, ml5.js, Blender, Gemini, Illustrator</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Format</span>
-                        <span class="meta-value">Mobile App & AR Experience</span>
+                        <span class="meta-value">Webcam-based Digital Oracle</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Year</span>
-                        <span class="meta-value">2024</span>
+                        <span class="meta-value">2025</span>
                     </div>
                 </div>
             </header>
 
-            <section class="video-wrapper">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/htHzM4u4O18" frameborder="0" allowfullscreen></iframe>
-                </div>
+            <!-- Main Hero Image -->
+            <section class="hero-media">
+                <img src="assets/51.png" alt="Digital Oracle Hero Image">
             </section>
 
             <!-- Concept Section -->
-            <section class="detail-text-section" style="border-bottom: none; padding-bottom: 0;">
-                <div class="section-heading">Concept & Vision</div>
+            <section class="detail-text-section">
+                <div class="section-heading">The Concept</div>
                 <div class="section-content">
                     <div class="editorial-text">
-                        <p><strong>The Concept:</strong> The Yulin General Market is a traditional food market in Chengdu that, despite being deeply tied to the community, has remained static for 20 years and struggled to engage the growing younger demographic.</p>
-                        <p><strong>The Vision:</strong> This project aims to reshape the market from a single, outdated functional space into a culturally complex living scenario. It strikes a balance between heritage and innovation by preserving local traditions—such as the unique rhythms of the Chengdu dialect—while introducing a modernized, digital-first shopping experience tailored for today's youth.</p>
+                        <p>This project is a playful reimagining of the traditional "Magic 8-Ball" or "Book of Answers" concept. It is an interactive web-based system built with p5.js and ml5.js that transforms the act of seeking advice into a whimsical, digital ritual.</p>
+                        <p>Users interact with the system not just through typing, but through physical gestures—specifically, putting their hands together in a prayer-like motion—to summon an animated 3D angel model. The system provides random answers that can be "accepted" or, if unsatisfactory, "burned" away through a click interaction, offering a moment of digital catharsis. The project aims to create a healing, surprising, and engaging experience out of the simple everyday desire for guidance.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Mechanics Section -->
-            <section class="detail-text-section" style="border-bottom: none; padding-bottom: 0;">
+            <!-- Interaction Mechanics Section -->
+            <section class="detail-text-section-full">
                 <div class="section-heading">Interaction Mechanics</div>
-                <div class="section-content">
-                    <div class="side-by-side-row" style="margin-bottom: 4rem;">
-                        <div class="text-block">
-                            <p><strong>Online + Offline Synergy:</strong> The core mechanic bridges the visual, dynamic online world with the static, physical geography of the shop.</p>
-                        </div>
-                        <div class="image-block"><img src="assets/30.png" loading="lazy"></div>
+                
+                <!-- Seamless Input -->
+                <div class="sub-heading">Seamless Input</div>
+                <div class="split-50">
+                    <div class="text-block">
+                        <p>The system features a text input listener that automatically triggers when a question mark ("?") is detected, eliminating redundant clicks and mimicking the fluid flow of a real conversation.</p>
                     </div>
-
-                    <div class="side-by-side-row">
-                        <div class="text-block">
-                            <p><strong>Cultural UI Design:</strong> The interface design itself acts as a cultural mechanic, featuring a custom font system ("Afronaut Regular" and Chinese Gothic) that scales dynamically according to local dialectal features.</p>
-                        </div>
-                        <div class="image-block"><img src="assets/31.png" loading="lazy"></div>
-                    </div>
-                    <div class="inline-image-wrap full" style="margin-bottom: 4rem;"><img src="assets/37.png" loading="lazy"></div>
-
-                    <div class="side-by-side-row ratio-3-7">
-                        <div class="text-block">
-                            <p><strong>Interactive Navigation:</strong> Users navigate the physical space through an Interactive Map built with 3D models, providing stall guidance, event alerts, and direct in-app shopping.</p>
-                        </div>
-                        <div class="image-block"><img src="assets/32.png" loading="lazy"></div>
+                    <div class="media-block">
+                        <video src="assets/问号召唤.mp4" autoplay loop muted playsinline loading="lazy"></video>
                     </div>
                 </div>
+
+                <!-- 53.png -->
+                <div class="inline-image-wrap full">
+                    <img src="assets/53.png" alt="Interaction Interface" loading="lazy">
+                </div>
+
+                <!-- Motion Tracking -->
+                <div class="sub-heading">Motion Tracking</div>
+                <div class="split-50">
+                    <div class="text-block">
+                        <p>The system utilizes ml5.js to track the user's facial position and hand gestures via a webcam.</p>
+                    </div>
+                    <div class="media-block" style="text-align: center;">
+                        <img src="assets/54.png" alt="Motion Tracking Recognition" loading="lazy" style="width: 70%; margin: 0 auto !important;">
+                    </div>
+                </div>
+
+                <!-- Parallax Follow -->
+                <div class="sub-heading">Parallax Follow</div>
+                <div class="editorial-text">
+                    <p>A paper angel model continuously follows the position of the audience's head in the 3D scene, creating a parallax effect.</p>
+                </div>
+
+                <!-- Summoning Ritual -->
+                <div class="sub-heading">Summoning Ritual</div>
+                <div class="editorial-text">
+                    <p>Users physically pose in a prayer-like motion (putting hands together); when the distance between the wrists is close enough (< 130px), the system triggers the function to summon the animated angel and deliver an answer.</p>
+                </div>
+                <div class="gallery-grid">
+                    <video src="assets/好的.mp4" autoplay loop muted playsinline loading="lazy"></video>
+                    <video src="assets/坏的.mp4" autoplay loop muted playsinline loading="lazy"></video>
+                </div>
+
+                <!-- Burn & Reset -->
+                <div class="sub-heading">Burn & Reset</div>
+                <div class="editorial-text">
+                    <p>If the user is unsatisfied with the given answer, they can click the screen to "burn" the answer away, releasing stress and resetting the system state.</p>
+                </div>
+                <div class="inline-image-wrap seventy">
+                    <video src="assets/燃烧.mp4" autoplay loop muted playsinline loading="lazy"></video>
+                </div>
+
             </section>
 
-            <div style="border-bottom: 1px solid #111; margin-bottom: 4rem;"></div>
-
-            <!-- Execution Section -->
+            <!-- Execution & AI Integration Section -->
             <section class="detail-text-section" style="border-bottom: none; padding-bottom: 0;">
-                <div class="section-heading">Execution & Integration</div>
+                <div class="section-heading">The Execution & AI Integration</div>
                 <div class="section-content">
-                    <div class="editorial-text"><p><strong>General Content:</strong> Including daily activities, digital recipes, and real-time navigation components.</p></div>
-                    <div class="inline-image-wrap seventy" style="margin-bottom: 4rem;"><img src="assets/39.gif" loading="lazy"></div>
-
-                    <!-- 【修改点】Spatial Computing 采用 3:7 左右排版，右侧双图并排 -->
-                    <div class="side-by-side-row ratio-3-7" style="margin-bottom: 4rem;">
-                        <div class="text-block">
-                            <p><strong>Spatial Computing & AR:</strong> To execute this offline-to-online transformation, the project heavily utilizes Augmented Reality (AR) to enhance the physical shopping experience.</p>
-                        </div>
-                        <div class="image-block sub-grid">
-                            <img src="assets/33.png" loading="lazy">
-                            <img src="assets/34.png" loading="lazy">
-                        </div>
-                    </div>
-
-                    <div class="inline-image-wrap seventy" style="margin-bottom: 4rem;"><img src="assets/38.gif" loading="lazy"></div>
-
                     <div class="editorial-text">
-                        <p><strong>The AR Food Identifier:</strong> Pointing smartphone cameras at raw goods to overlay digital data cards with origin details, safety certifications, and storage tips.</p>
+                        <p>The project was built using p5.js with 3D rendering (WEBGL mode) and integrated ml5.js for computer vision recognition. Visual elements involved a mixed workflow: sketching initial forms, converting them into vector graphics in Illustrator, constructing origami-style 3D models in modelling software, and finally exporting them to p5.js.</p>
+                        <p>AI was utilized as an assistant for code syntax and library integration, particularly in aligning ml5.js tracking data with the p5.js WEBGL coordinate system. AI helped generate the algorithm logic for dynamic text scaling (drawStretchedText) and assisted in refining the class structure for state management. All AI-generated code and content were rigorously tested, reviewed, and manually adjusted by the creator to ensure they fit the project's specific narrative and functional requirements.</p>
                     </div>
-                    <div class="inline-image-wrap seventy" style="margin-bottom: 4rem;"><img src="assets/40.gif" loading="lazy"></div>
-
-                    <div class="editorial-text">
-                        <p><strong>Redefining User Flow:</strong> Successfully managing the market's dynamic flow by catering to both elderly residents and young "city-walkers," enhancing operational efficiency and community participation.</p>
-                    </div>
-                    <div class="inline-image-wrap full"><img src="assets/35.png" loading="lazy"></div>
                 </div>
             </section>
 
             <div style="border-bottom: 1px solid #111; margin-bottom: 4rem;"></div>
 
-            <!-- Offline Section -->
-            <section class="narrative-gallery" style="margin-bottom: 0;">
-                <div class="gallery-text no-border-bottom">Offline Visual Design</div>
-                <div class="gallery-item full-width"><img src="assets/36.png" loading="lazy"></div>
+            <!-- YouTube Video Presentation -->
+            <section class="video-wrapper">
+                <div class="video-heading">Project Video</div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/go-eSSq0790" title="Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
             </section>
+
         </main>
     </div>
+
 </body>
 </html>

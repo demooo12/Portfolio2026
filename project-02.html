@@ -43,11 +43,12 @@
         /* Header Section */
         .detail-header { margin-bottom: 2rem; }
         .detail-title { font-size: clamp(3rem, 5vw, 5rem); font-weight: bold; line-height: 1.05; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
-        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; color: #555; }
-        .detail-team-tag .highlight { color: #111; font-weight: bold; border-bottom: 1px solid #111; padding-bottom: 2px; }
         
-        /* Keywords Tag */
-        .keywords { font-family: monospace; font-size: 0.85rem; color: #111; margin-bottom: 2rem; text-transform: uppercase; padding: 10px; border: 1px solid #111; display: inline-block; }
+        /* 标签与按钮同行排版 */
+        .header-tags-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem; }
+        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; display: flex; align-items: center; gap: 10px; color: #555; }
+        .detail-team-tag .highlight { color: #111; font-weight: bold; border-bottom: 1px solid #111; padding-bottom: 2px; }
+        .header-tags-actions .link-group { margin-bottom: 0; }
 
         /* Meta Data Grid */
         .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #111; border-bottom: 2px solid #111; margin-bottom: 3rem; }
@@ -72,8 +73,8 @@
         
         /* 内嵌图片的排版控制 */
         .inline-image-wrap { margin-top: 2rem; text-align: center; }
-        .inline-image-wrap.small img { max-width: 70%; height: auto; border: 1px solid #ddd; margin: 0 auto; display: block; }
-        .inline-image-wrap.full img { width: 100%; height: auto; border: 1px solid #ddd; display: block; }
+        .inline-image-wrap.small img, .inline-image-wrap.small video { max-width: 70%; height: auto; border: 1px solid #ddd; margin: 0 auto; display: block; }
+        .inline-image-wrap.full img, .inline-image-wrap.full video { width: 100%; height: auto; border: 1px solid #ddd; display: block; }
 
         /* Video Wrapper */
         .video-wrapper { margin-bottom: 4rem; }
@@ -86,7 +87,7 @@
         .gallery-text { font-size: 1.2rem; font-weight: bold; text-transform: uppercase; color: #111; margin-top: 2rem; margin-bottom: 0.5rem; border-bottom: 1px solid #111; padding-bottom: 0.5rem; }
         .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
         .gallery-item { width: 100%; background-color: transparent; display: flex; align-items: center; justify-content: center; }
-        .gallery-item img { width: 100%; height: auto; object-fit: contain; border: 1px solid #ddd; }
+        .gallery-item img, .gallery-item video { width: 100%; height: auto; object-fit: contain; border: 1px solid #ddd; }
         .gallery-item.full-width { grid-column: span 2; }
 
         @media (max-width: 768px) {
@@ -98,7 +99,7 @@
             .meta-item:nth-child(even) { border-right: none; padding-left: 1rem; }
             .detail-text-section { grid-template-columns: 1fr; gap: 1rem; }
             .editorial-text { column-count: 1; }
-            .inline-image-wrap.small img { max-width: 100%; }
+            .inline-image-wrap.small img, .inline-image-wrap.small video { max-width: 100%; }
             .gallery-grid { grid-template-columns: 1fr; }
             .gallery-item.full-width { grid-column: span 1; }
         }
@@ -112,13 +113,12 @@
             <a href="index.html" class="nav-pill">JIAYUN SONG</a>
             <a href="index.html#works" class="nav-pill">WORKS</a>
             <a href="index.html#info" class="nav-pill">INFO</a>
-            <a href="#" class="nav-pill">OTHER</a>
         </nav>
 
         <main class="main-content">
             
             <!-- Back Link -->
-            <div class="link-group">
+            <div class="link-group" style="margin-bottom: 2rem;">
                 <a href="index.html" class="action-btn"><- BACK TO WORKS</a>
             </div>
 
@@ -126,13 +126,16 @@
             <header class="detail-header">
                 <h1 class="detail-title">/imagine:salmon</h1>
                 
-                <div class="detail-team-tag">
-                    <span class="highlight">TEAM OF 3</span> 
-                    <span>/ MOTION CAPTURE & GAME</span>
-                </div>
-
-                <div class="keywords">
-                    Keywords: Mocap Retargeting | Black Comedy | Bodily Alienation | Data Fallacy
+                <!-- 标签与操作按钮同行排版 -->
+                <div class="header-tags-actions">
+                    <div class="detail-team-tag">
+                        <span class="highlight">TEAM OF 3</span> 
+                        <span>/ MOTION CAPTURE & GAME</span>
+                    </div>
+                    <!-- 将 Project Video 按钮放置在标签旁 -->
+                    <div class="link-group">
+                        <a href="https://vimeo.com/1177660482" target="_blank" class="action-btn">Project Video -></a>
+                    </div>
                 </div>
                 
                 <div class="meta-grid">
@@ -166,6 +169,10 @@
                 <div class="section-content">
                     <div class="editorial-text">
                         <p>Inspired by the viral AI-generated meme depicting raw salmon sashimi—rather than live fish—swimming upstream, this project is built upon an absurd and darkly comedic Speculative Design framework. In this piece, the player's digital avatar is not a traditional humanoid, but a slice of salmon sashimi.</p>
+                        
+                        <!-- 01.png -->
+                        <img src="assets/01.png" alt="Concept Illustration" style="width: 100%; height: auto; display: block; margin-bottom: 1.5rem; border: 1px solid #ddd;" loading="lazy">
+
                         <p>This sashimi acts as a poignant metaphor for the individual's condition under the algorithmic gaze and hyper-consumerism—a piece of "digital flesh" plated and waiting to be selected and consumed. The project deliberately explores the aesthetics of "erroneous data": the salmon is essentially an awakened cluster of erroneous AI data possessing a survival instinct. It exhibits human-like struggling dynamics while trapped in the physical shell of food. This serves not only as an absurd metaphor for Bodily Autonomy, but also as a sharp interrogation of the boundaries between subjectivity and objectification in a techno-centric society.</p>
                     </div>
                 </div>
@@ -176,19 +183,17 @@
                 <div class="section-heading">Mechanics</div>
                 <div class="section-content">
                     <div class="editorial-text">
-                        <!-- 分成两个段落实现双列排版 -->
                         <p>The game mechanics center on an asymmetrical survival experience driven by fatalism. The player controls the sashimi, dodging a pair of giant, procedurally animated chopsticks powered by pseudo-random targeting algorithms.</p>
                         <p>Upon losing, the game triggers a cinematic "execution" sequence where the chopsticks deliver the sashimi directly into a child's mouth via a calculated parabolic trajectory. This mechanic of "struggling to survive only to be inevitably consumed" perfectly echoes the project's absurd and predetermined nature.</p>
                     </div>
-                    <!-- 加入懒加载 -->
                     <div class="inline-image-wrap full">
-                        <img src="assets/14.png" alt="Gameplay Overview" loading="lazy">
+                        <video src="assets/交互示意图.mp4" autoplay loop muted playsinline loading="lazy"></video>
                     </div>
                 </div>
             </section>
 
             <!-- Execution & AI Integration Section -->
-            <section class="detail-text-section">
+            <section class="detail-text-section" style="border-bottom: none; padding-bottom: 0;">
                 <div class="section-heading">Execution & AI</div>
                 <div class="section-content">
                     <div class="editorial-text">
@@ -198,37 +203,29 @@
                 </div>
             </section>
 
-            <!-- Vimeo Video Presentation -->
-            <section class="video-wrapper">
-                <div class="video-heading">Project Video</div>
-                <div class="video-container">
-                    <iframe src="https://player.vimeo.com/video/1177660482?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                </div>
-            </section>
-
             <!-- Process & Gallery -->
-            <section class="narrative-gallery">
+            <section class="narrative-gallery" style="margin-top: 4rem;">
                 <div class="section-heading" style="margin-bottom: 1rem;">Process & Gallery</div>
                 
                 <div class="gallery-text">Storyboard</div>
                 <div class="gallery-item full-width">
-                    <!-- 加入懒加载 -->
                     <img src="assets/13.png" alt="Storyboard" style="max-width: 70%; margin: 0 auto; display: block;" loading="lazy">
                 </div>
 
                 <div class="gallery-text">Character Design & Motion Capture</div>
                 <div class="gallery-item full-width">
-                    <!-- 加入懒加载 -->
                     <img src="assets/18.png" alt="Character Design" loading="lazy">
                 </div>
+                
                 <div class="gallery-item full-width">
-                    <!-- 加入懒加载 -->
-                    <img src="assets/19.png" alt="Motion Capture Content" loading="lazy">
+                    <video src="assets/mocap.mp4" autoplay loop muted playsinline loading="lazy"></video>
+                </div>
+                <div class="gallery-item full-width">
+                    <video src="assets/骨架.mov" autoplay loop muted playsinline loading="lazy"></video>
                 </div>
 
                 <div class="gallery-text">Gameplay Dynamics & Cinematics</div>
                 <div class="gallery-grid">
-                    <!-- 全面加入懒加载 -->
                     <div class="gallery-item"><img src="assets/16.gif" alt="Entrance Animation" loading="lazy"></div>
                     <div class="gallery-item"><img src="assets/17.gif" alt="Struggle Animation" loading="lazy"></div>
                     
@@ -238,7 +235,16 @@
                     <div class="gallery-item"><img src="assets/22.gif" alt="Eating Animation" loading="lazy"></div>
                     <div class="gallery-item"><img src="assets/23.gif" alt="Final Sequence" loading="lazy"></div>
                 </div>
+            </section>
 
+            <div style="border-bottom: 1px solid #111; margin-bottom: 4rem;"></div>
+
+            <!-- Vimeo Video Presentation (Moved to the bottom) -->
+            <section class="video-wrapper">
+                <div class="video-heading">Project Video</div>
+                <div class="video-container">
+                    <iframe src="https://player.vimeo.com/video/1177660482?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
             </section>
 
         </main>

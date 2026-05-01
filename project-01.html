@@ -43,8 +43,12 @@
         /* Header Section */
         .detail-header { margin-bottom: 2rem; }
         .detail-title { font-size: clamp(3rem, 5vw, 5rem); font-weight: bold; line-height: 1.05; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
-        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; color: #555; }
+        
+        /* 标签与按钮同行排版 */
+        .header-tags-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem; }
+        .detail-team-tag { font-family: monospace; font-size: 0.9rem; text-transform: uppercase; display: flex; align-items: center; gap: 10px; color: #555; }
         .detail-team-tag .highlight { color: #111; font-weight: bold; border-bottom: 1px solid #111; padding-bottom: 2px; }
+        .header-tags-actions .link-group { margin-bottom: 0; } /* 取消内嵌按钮组的底边距 */
 
         /* Meta Data Grid */
         .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #111; border-bottom: 2px solid #111; margin-bottom: 3rem; }
@@ -72,8 +76,17 @@
         .gallery-text { font-size: 1.2rem; color: #111; max-width: 900px; margin-top: 2rem; margin-bottom: 1rem; border-left: 3px solid #111; padding-left: 1rem; }
         .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
         .gallery-item { width: 100%; background-color: transparent; display: flex; align-items: center; justify-content: center; }
-        .gallery-item img { width: 100%; height: auto; object-fit: contain; border: 1px solid #ddd; }
+        
+        /* 已经去掉了所有边框 (border: none) */
+        .gallery-item img { width: 100%; height: auto; object-fit: contain; border: none; }
         .gallery-item.full-width { grid-column: span 2; }
+
+        /* 3:7 排版特设类 */
+        .side-by-side-ratio { display: grid; grid-template-columns: 0.3fr 0.7fr; gap: 2rem; align-items: center; margin-top: 2rem; }
+        .side-by-side-ratio .text-block { font-size: 1.2rem; color: #111; border-left: 3px solid #111; padding-left: 1rem; line-height: 1.4; }
+        
+        /* 已经去掉了所有边框 (border: none) */
+        .side-by-side-ratio .media-block video { width: 100%; height: auto; display: block; border: none; }
 
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; border-right: none; border-bottom: 1px solid #111; padding: 1rem; justify-content: center; gap: 10px; }
@@ -86,6 +99,7 @@
             .editorial-text { column-count: 1; }
             .gallery-grid { grid-template-columns: 1fr; }
             .gallery-item.full-width { grid-column: span 1; }
+            .side-by-side-ratio { grid-template-columns: 1fr; gap: 1.5rem; }
         }
     </style>
 </head>
@@ -97,24 +111,29 @@
             <a href="index.html" class="nav-pill">JIAYUN SONG</a>
             <a href="index.html#works" class="nav-pill">WORKS</a>
             <a href="index.html#info" class="nav-pill">INFO</a>
-            <a href="#" class="nav-pill">OTHER</a>
         </nav>
 
         <main class="main-content">
             
-            <!-- Top Links -->
-            <div class="link-group">
+            <!-- Top Links (只保留返回按钮) -->
+            <div class="link-group" style="margin-bottom: 2rem;">
                 <a href="index.html" class="action-btn"><- BACK TO WORKS</a>
-                <a href="https://marriagemarket.onrender.com" target="_blank" class="action-btn">Project Website -></a>
-                <a href="https://joysong.itch.io/marriage-market" target="_blank" class="action-btn">Game Download (Itch.io) -></a>
             </div>
 
             <!-- Header -->
             <header class="detail-header">
                 <h1 class="detail-title">MarriagEmArkeT</h1>
                 
-                <div class="detail-team-tag">
-                    <span class="highlight">SOLO PROJECT</span> 
+                <!-- 标签与操作按钮同行排版 -->
+                <div class="header-tags-actions">
+                    <div class="detail-team-tag">
+                        <span class="highlight">SOLO PROJECT</span> 
+                    </div>
+                    <!-- 将两个跳转按钮移动到这里 -->
+                    <div class="link-group">
+                        <a href="https://marriagemarket.onrender.com" target="_blank" class="action-btn">Project Website -></a>
+                        <a href="https://joysong.itch.io/marriage-market" target="_blank" class="action-btn">Game Download (Itch.io) -></a>
+                    </div>
                 </div>
                 
                 <div class="meta-grid">
@@ -122,9 +141,10 @@
                         <span class="meta-label">Role</span>
                         <span class="meta-value">Concept to Execution</span>
                     </div>
+                    <!-- 🛠️ 在这里增加了 Three.js -->
                     <div class="meta-item">
                         <span class="meta-label">Tools</span>
-                        <span class="meta-value">Unity, Gemini, Figma</span>
+                        <span class="meta-value">Unity, Gemini, Three.js, Figma</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Format</span>
@@ -169,19 +189,25 @@
             <!-- Narrative Process Gallery -->
             <section class="narrative-gallery">
                 
-                <div class="gallery-text">
-                    "The marriage market is, in a literal sense, a meat market."<br>
-                    The transformation from sociological observation to a surreal space is a process of continuously stripping away reality and reconstructing "pain."
-                </div>
-                <div class="gallery-item full-width">
-                    <img src="assets/01.png" alt="Game Main Page">
+                <!-- 01.mp4 3:7 排版 -->
+                <div class="side-by-side-ratio">
+                    <div class="text-block">
+                        "The marriage market is, in a literal sense, a meat market."<br><br>
+                        The transformation from sociological observation to a surreal space is a process of continuously stripping away reality and reconstructing "pain."
+                    </div>
+                    <div class="media-block">
+                        <video src="assets/01.mp4" autoplay loop muted playsinline loading="lazy"></video>
+                    </div>
                 </div>
 
-                <div class="gallery-text">
-                    Assuming the role of anxious parents coerced by the "social clock" and societal peer pressure, players navigate a claustrophobic market filled with suspended cuts of meat (representing 16 male and female candidates). The core interaction—toggling a virtual "Fresh Meat Lamp"—acts as a computational "system glitch." It abruptly switches the environment from a red-tinted fantasy to a harsh, clinical white light. This single click instantly strips away the parents' curated data, replacing the formatted profiles with the stark, often agonizing reality of the individuals underneath.
-                </div>
-                <div class="gallery-item full-width">
-                    <img src="assets/02.png" alt="Game Introduction">
+                <!-- 02.mp4 同样使用 3:7 排版 -->
+                <div class="side-by-side-ratio">
+                    <div class="text-block">
+                        Assuming the role of anxious parents coerced by the "social clock" and societal peer pressure, players navigate a claustrophobic market filled with suspended cuts of meat (representing 16 male and female candidates). The core interaction—toggling a virtual "Fresh Meat Lamp"—acts as a computational "system glitch." It abruptly switches the environment from a red-tinted fantasy to a harsh, clinical white light. This single click instantly strips away the parents' curated data, replacing the formatted profiles with the stark, often agonizing reality of the individuals underneath.
+                    </div>
+                    <div class="media-block">
+                        <video src="assets/02.mp4" autoplay loop muted playsinline loading="lazy"></video>
+                    </div>
                 </div>
 
                 <div class="gallery-text">
@@ -191,6 +217,11 @@
                 <div class="gallery-grid">
                     <div class="gallery-item"><img src="assets/03.png" alt="Red Lighting Interaction"></div>
                     <div class="gallery-item"><img src="assets/04.png" alt="White Lighting Interaction"></div>
+                </div>
+                
+                <!-- 03.mp4 无边框 -->
+                <div class="gallery-item full-width" style="margin-top: -1rem;">
+                    <video src="assets/03.mp4" autoplay loop muted playsinline loading="lazy" style="width: 100%; height: auto; display: block;"></video>
                 </div>
 
                 <div class="gallery-text">
@@ -202,22 +233,32 @@
                 </div>
 
                 <div class="gallery-text" style="margin-top: 4rem;">
-                    <strong>Interactive Web Archive Overview</strong><br>
-                    Explore the full conceptual framework, parametric interactions, and research documentation on the project website.
-                    <br>
-                    <a href="https://marriagemarket.onrender.com" target="_blank" style="color: #111; font-weight: normal; margin-top: 10px; display: inline-block;">https://marriagemarket.onrender.com</a>
+                    <strong>Interactive Web Archive Overview</strong>
                 </div>
                 
-                <div class="gallery-item full-width">
+                <!-- 首页.mp4 3:7 排版 -->
+                <div class="side-by-side-ratio" style="margin-top: 1rem;">
+                    <div class="text-block" style="border-left: none; padding-left: 0;">
+                        Explore the full conceptual framework, parametric interactions, and research documentation on the project website.<br><br>
+                        <!-- 改版后的链接按钮 -->
+                        <a href="https://marriagemarket.onrender.com" target="_blank" class="action-btn" style="display: inline-block;">Project Website -></a>
+                    </div>
+                    <div class="media-block">
+                        <video src="assets/首页.mp4" autoplay loop muted playsinline loading="lazy"></video>
+                    </div>
+                </div>
+                
+                <!-- 4 个功能模块视频展示，无边框 -->
+                <div class="gallery-grid" style="margin-top: 4rem;">
+                    <div class="gallery-item"><video src="assets/lab2.mp4" autoplay loop muted playsinline loading="lazy" style="width: 100%; height: auto; display: block;"></video></div>
+                    <div class="gallery-item"><video src="assets/game.mp4" autoplay loop muted playsinline loading="lazy" style="width: 100%; height: auto; display: block;"></video></div>
+                    <div class="gallery-item"><video src="assets/doc.mp4" autoplay loop muted playsinline loading="lazy" style="width: 100%; height: auto; display: block;"></video></div>
+                    <div class="gallery-item"><video src="assets/文献.mp4" autoplay loop muted playsinline loading="lazy" style="width: 100%; height: auto; display: block;"></video></div>
+                </div>
+
+                <!-- 07.png 移至最后，作为压轴 -->
+                <div class="gallery-item full-width" style="margin-top: 4rem;">
                     <img src="assets/07.png" alt="Website Overview">
-                </div>
-                
-                <div class="gallery-grid">
-                    <div class="gallery-item"><img src="assets/08.png" alt="Website Cover"></div>
-                    <div class="gallery-item"><img src="assets/09.png" alt="Interaction Lab Module"></div>
-                    <div class="gallery-item"><img src="assets/10.png" alt="Theoretical Framework Module"></div>
-                    <div class="gallery-item"><img src="assets/11.png" alt="Game Details and Download Module"></div>
-                    <div class="gallery-item full-width"><img src="assets/12.png" alt="Research Content and Video Record Module"></div>
                 </div>
 
             </section>
